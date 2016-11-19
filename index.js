@@ -79,13 +79,13 @@ app.post('/webhook', function (req, res) {
           text = "answer message"
         	sendMessage(event.sender.id, {text: text})
         }
-        else if(!(event.message.text.toLowerCase().localeCompare("Sign Petition"))){
+        else if(!(event.message.text.toLowerCase().localeCompare("sign petition"))){
           sendMessage(event.sender.id,{text: "petition"})
         }
-        else if(!(event.message.text.toLowerCase().localeCompare("Donate"))){
+        else if(!(event.message.text.toLowerCase().localeCompare("donate"))){
           sendMessage(event.sender.id,{text: "donate"})
         }
-        else if(!(event.message.text.toLowerCase().localeCompare("Find Organizations"))){
+        else if(!(event.message.text.toLowerCase().localeCompare("find organizations"))){
           sendMessage(event.sender.id,{text: "organziation finding"})
         }
 
@@ -95,7 +95,7 @@ app.post('/webhook', function (req, res) {
         }
       }
       else if(event.postback){
-        
+
         if(!(event.postback.payload.localeCompare("petition"))){
           sendMessage(event.sender.id,{text: "petition"})
         }
