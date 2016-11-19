@@ -12,20 +12,16 @@ app.listen((process.env.PORT || 3000));
 var intro_words = ["hey","hello","aloha","namaste","hi", "howdy", "heya"]
 var ask_words = ["wassup", "what's up", "whatsup", "whats up","how are you", "how is it going", "how you doing", "how are you doing", "how are you?", "how is it going?", "how you doing?", "how are you doing?"]
 
-function inArray(needle,haystack)
-{
+function inArray(needle,haystack){
     var count=haystack.length;
-    for(var i=0;i<count;i++)
-    {
+    for(var i=0;i<count;i++){
         if(haystack[i]===needle){return true;}
     }
     return false;
-}
+  }
 
 var changeClient = changeApi.createClient({
   api_key: '32257b66d1ebcca330045074be776fb300c273aaa6bdb413b10cad7064933294'
-
-
 });
 
 app.get('/', function (req, res) {
@@ -55,46 +51,53 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         console.log("individual event " + event)
         if (event.message && event.message.text) {
-        	if(inArray(event.message.text.toLowerCase(),intro_words)){
+          if(inArray(event.message.text.toLowerCase(),intro_words)){
+        	   message = {
+        		     "text":"Introduction message",
+    			       "quick_replies":[{
+                    "content_type":"text",
+                    "title":"Sign Petition",
+                    "payload":"petition"
+                  },
+                  {
+                    "content_type":"text",
+                    "title":"Find Organizations",
+                    "payload":"find_org"
+                  },
+                  {
+                    "content_type":"text",
+                    "title":"Donate",
+                    "payload":"donate"
+                  }
+                ]
+              }
 
-        	//text = "Introduction message"
-        	message = {
-        		"text":"Introduction message",
-    			"quick_replies":[
-      {
-        "content_type":"text",
-        "title":"Sign Petition",
-        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
-      },
-      {
-        "content_type":"text",
-        "title":"Find Organizations",
-        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
-      },
-      {
-        "content_type":"text",
-        "title":"Donate",
-        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
-      }
-    ]
-  }
-        	
         	sendMessage(event.sender.id, message)
-
         }
 
         else if(inArray(event.message.text.toLowerCase(),ask_words)){
-			text = "answer message"
+          text = "answer message"
         	sendMessage(event.sender.id, {text: text})
         }
 
-        else
-        {	
+        else{
         	text = event.message.text
         	sendMessage(event.sender.id, {text: "Text received, echo: " + text.substring(0, 200)})
         }
+      }
+      else if(event.postback){
+        if(!(event.postback.payload.localeCompare("petition"))){
+          sendMessage(event.sender.id,{text: "petition"})
         }
+        else if(!(event.postback.payload.localeCompare("donate"))){
+          sendMessage(event.sender.id,{text: "donate"})
         }
+        else if(!(event.postback.payload.localeCompare("find_org"))){
+          sendMessage(event.sender.id,{text: "finding Organizations"})
+        }
+
+      }
+    }
     res.sendStatus(200)
 });
 
@@ -153,7 +156,7 @@ function sendMessage(recipientId, message) {
 //     last_name: 'Oh',
 //     city: 'Berkeley',
 //     postal_code: 94703,
-//     country_code: 'US' 
+//     country_code: 'US'
 
 // 	},
 //   function (err, res, body) {
