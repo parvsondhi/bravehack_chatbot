@@ -87,7 +87,7 @@ app.post('/webhook', function (req, res) {
               "quick_replies":[{
                  "content_type":"text",
                  "title":"Correct",
-                 "payload":"yes"
+                 "payload": event.message.text
                },
                {
                  "content_type":"text",
