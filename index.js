@@ -77,11 +77,32 @@ app.post('/webhook', function (req, res) {
 
         else if(inArray(event.message.text.toLowerCase(),ask_words)){
           text = "answer message"
+
         	sendMessage(event.sender.id, {text: text})
         }
         else if(event.message.text.toLowerCase().includes("@")){
-          text = "Please confirm your email id " + event.message.text
+          text = "Please confirm your Email ID: " + event.message.text
+          message = {
+              "text":text,
+              "quick_replies":[{
+                 "content_type":"text",
+                 "title":"Correct",
+                 "payload":"yes"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Enter Again",
+                 "payload":"no"
+               }
+             ]
+           }
           sendMessage(event.sender.id, {text: text})
+        }
+        else if(!(event.message.text.toLowerCase().localeCompare("correct"))){
+          sendMessage(event.sender.id, {text: "correct"})
+        }
+        else if(!(event.message.text.toLowerCase().localeCompare("enter again"))){
+          sendMessage(event.sender.id, {text: "Enter your Email Address"})
         }
         else if(!(event.message.text.toLowerCase().localeCompare("sign petition"))){
           message = {
