@@ -9,6 +9,19 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 3000));
 
+var intro_words = ["hey","hello","aloha","namaste","hi", "howdy", "heya"]
+var ask_words = ["wassup", "what's up", "whatsup", "whats up","how are you", "how is it going", "how you doing"]
+
+function inArray(needle,haystack)
+{
+    var count=haystack.length;
+    for(var i=0;i<count;i++)
+    {
+        if(haystack[i]===needle){return true;}
+    }
+    return false;
+}
+
 var changeClient = changeApi.createClient({
   api_key: '32257b66d1ebcca330045074be776fb300c273aaa6bdb413b10cad7064933294'
 
@@ -42,8 +55,15 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         console.log("individual event " + event)
         if (event.message && event.message.text) {
+        	if(inArray(event.message.text.toLowerCase(),intro_words)){
+        	text = "Introduction message"
+        	sendMessage(event.sender.id, {text: text})
+        }
+        else
+        {	
         	text = event.message.text
         	sendMessage(event.sender.id, {text: "Text received, echo: " + text.substring(0, 200)})
+        }
         }
         }
     res.sendStatus(200)
