@@ -60,6 +60,10 @@ app.post('/webhook', function (req, res) {
         	sendMessage(event.sender.id, {text: text})
 
         }
+        else if(inArray(event.message.text.toLowerCase(),ask_words)){
+			text = "answer message"
+        	sendMessage(event.sender.id, {text: text})
+        }
         else
         {	
         	text = event.message.text
@@ -87,9 +91,7 @@ function sendMessage(recipientId, message) {
         } else if (response.body.error) {
             console.log('Error: ', response.body.error);
         }
-        else{
-        	sendMessage(event.sender.id, {text: "message2"})
-        }
+
     });
 };
 // changeClient.petitions.getByUrl(petitionUrl,
