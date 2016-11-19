@@ -1,6 +1,13 @@
 var changeApi = require('change-api');
 var petitionUrl = 'https://www.change.org/p/test-test-petitition'
+var express = require('express');
+var bodyParser = require('body-parser');
+var request = require('request');
+var app = express();
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.listen((process.env.PORT || 3000));
 
 var changeClient = changeApi.createClient({
   api_key: '32257b66d1ebcca330045074be776fb300c273aaa6bdb413b10cad7064933294'
@@ -8,12 +15,29 @@ var changeClient = changeApi.createClient({
 
 });
 
-changeClient.petitions.getByUrl(petitionUrl,
+app.get('/', function (req, res) {
+    
+    changeClient.petitions.getByUrl(petitionUrl,
   function (err, res, body) {
 
   	console.log(body)
+  	res.send('Hello world, I am a chat bot')
     //Process results here
   });
+
+})
+
+
+app.get('/webhook/', function (req, res) {
+    if (req.query['hub.verify_token'] === 'bravehack_token') {
+        res.send(req.query['hub.challenge'])
+    }
+    res.send('Error, wrong token')
+})
+
+
+
+
 
 
 
