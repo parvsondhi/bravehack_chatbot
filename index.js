@@ -92,7 +92,7 @@ app.post('/webhook', function (req, res) {
                           "buttons": [{
                               "type": "postback",
                               "title": "Sign Now",
-                              "payload":"overviews_tThe California Data Collaborative or “CaDC” is a voluntary, collaborative project where local cities, water retailers and land planning agencies have come together to build new data infrastructure to ensure California has reliable water today and into the future."
+                              "payload":"signs_t"
                           },
                           {
                               "type": "postback",
@@ -102,7 +102,7 @@ app.post('/webhook', function (req, res) {
                           {
                               "type": "web_url",
                               "url": "https://www.change.org/p/test-test-petitition",
-                              "title": "Go to Change.Org"
+                              "title": "Go to Change.org"
                               }],
 
                         }]
@@ -238,8 +238,8 @@ app.post('/webhook', function (req, res) {
 
           sendMessage(event.sender.id,message)
         }
-        else if(!(event.postback.payload.localeCompare("donate"))){
-          sendMessage(event.sender.id,{text: "donate"})
+        else if(!(newstring[0].localeCompare("sign"))){
+          sendMessage(event.sender.id,{text: "Enter your Email Address"})
         }
         else if(!(event.postback.payload.localeCompare("find_org"))){
           sendMessage(event.sender.id,{text: "finding Organizations"})
