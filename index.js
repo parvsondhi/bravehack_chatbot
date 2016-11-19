@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.listen((process.env.PORT || 3000));
 
 var intro_words = ["hey","hello","aloha","namaste","hi", "howdy", "heya"]
-var ask_words = ["wassup", "what's up", "whatsup", "whats up","how are you", "how is it going", "how you doing"]
+var ask_words = ["wassup", "what's up", "whatsup", "whats up","how are you", "how is it going", "how you doing", "how are you doing", "how are you?", "how is it going?", "how you doing?", "how are you doing?"]
 
 function inArray(needle,haystack)
 {
@@ -56,14 +56,33 @@ app.post('/webhook', function (req, res) {
         console.log("individual event " + event)
         if (event.message && event.message.text) {
         	if(inArray(event.message.text.toLowerCase(),intro_words)){
-        	text = "Introduction message"
-        	sendMessage(event.sender.id, {text: text})
+
+        	//text = "Introduction message"
+        	message = {
+        		"text":"Pick a color:",
+    			"quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Red",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+      },
+      {
+        "content_type":"text",
+        "title":"Green",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
+      }
+    ]
+  }
+        	
+        	sendMessage(event.sender.id, message)
 
         }
+
         else if(inArray(event.message.text.toLowerCase(),ask_words)){
 			text = "answer message"
         	sendMessage(event.sender.id, {text: text})
         }
+
         else
         {	
         	text = event.message.text
