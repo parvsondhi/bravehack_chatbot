@@ -16,28 +16,25 @@ var changeClient = changeApi.createClient({
 });
 
 app.get('/', function (req, res) {
-    
-  //   changeClient.petitions.getByUrl(petitionUrl,
-  // function (err, res, body) {
+    res.send('This is Haven');
+});
 
-  // 	console.log(body)
-  	res.send('Hello world, I am a chat bot')
-    //Process results here
-  });
-
-})
-
-
-app.get('/webhook/', function (req, res) {
+// Facebook Webhook
+app.get('/webhook', function (req, res) {
     if (req.query['hub.verify_token'] === 'bravehack_token') {
-        res.send(req.query['hub.challenge'])
+        res.send(req.query['hub.challenge']);
+    } else {
+        res.send('Invalid verify token');
     }
-    res.send('Error, wrong token')
-})
+});
 
 
+// changeClient.petitions.getByUrl(petitionUrl,
+//   function (err, res, body) {
 
-
+//   	console.log(body)
+//     //Process results here
+//   });
 
 
 
