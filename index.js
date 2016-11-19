@@ -99,7 +99,7 @@ app.post('/webhook', function (req, res) {
           sendMessage(event.sender.id, message)
         }
         else if(!(event.message.text.toLowerCase().localeCompare("correct"))){
-          console.log(event.message)
+          console.log(event.message.quick_reply.payload)
           //sendMessage(event.sender.id, {text: "correct"})
           // changeClient.petitions.addSignature({
           //   petition_id: 8930333,
