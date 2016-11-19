@@ -98,7 +98,7 @@ app.post('/webhook', function (req, res) {
                           "buttons": [{
                               "type": "postback",
                               "title": "View Overview",
-                              "payload":"overviews_tThe California Data Collaborative or “CaDC” is a voluntary, collaborative project where local cities, water retailers and land planning agencies have come together to build new data infrastructure to ensure California has reliable water today and into the future.  The CaDC has pioneered a new 501c3 data infrastructure non-profit and provides analytical tools and dashboards that are developed using freely available open source tools."
+                              "payload":"overviews_tThe California Data Collaborative or “CaDC” is a voluntary, collaborative project where local cities, water retailers and land planning agencies have come together to build new data infrastructure to ensure California has reliable water today and into the future."
                           },{
                               "type": "web_url",
                               "url": "http://californiadatacollaborative.com/",
