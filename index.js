@@ -111,7 +111,7 @@ app.post('/webhook', function (req, res) {
                           "image_url": "https://s3-us-west-1.amazonaws.com/bravehack/cdc.png" ,
                           "buttons": [{
                               "type": "postback",
-                              "title": "View Overview",
+                              "title": "About Us",
                               "payload":"overviews_tThe California Data Collaborative or “CaDC” is a voluntary, collaborative project where local cities, water retailers and land planning agencies have come together to build new data infrastructure to ensure California has reliable water today and into the future."
                           },{
                               "type": "web_url",
@@ -126,7 +126,7 @@ app.post('/webhook', function (req, res) {
                           "image_url": "https://s3-us-west-1.amazonaws.com/bravehack/w4all.png" ,
                           "buttons": [{
                               "type": "postback",
-                              "title": "View Overview",
+                              "title": "About Us",
                               "payload": "overviews_tThe initiative puts people and food first when it comes to using water, on the very day it is passed. In addition, the initiative begins the process of fixing our long-term water problems by increasing storage capacity for all water uses — families, farms and the environment — and it does so without raising taxes."
                             },{
                               "type": "web_url",
@@ -140,7 +140,7 @@ app.post('/webhook', function (req, res) {
                               "image_url": "https://s3-us-west-1.amazonaws.com/bravehack/calwa.png" ,
                               "buttons": [{
                                 "type": "postback",
-                                "title": "View Overview",
+                                "title": "About Us",
                                 "payload": "overviews_tThe California Water Alliance (CalWA) is a leading educational voice and authority on California water. Founded in 2009, CalWA is a non-profit, non-partisan 501c4 that advocates for the water needs of California families, cities, businesses, farmers and the environment."
                               },{
                                 "type": "web_url",
@@ -176,7 +176,27 @@ app.post('/webhook', function (req, res) {
         var newstring = event.postback.payload.split("s_t")
 
         if(!(newstring[0].localeCompare("overview"))){
-          sendMessage(event.sender.id,{text: newstring[1]})
+          message = {
+              "text":newstring[1],
+              "quick_replies":[{
+                 "content_type":"text",
+                 "title":"Sign Petition",
+                 "payload":"petition"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Find Organizations",
+                 "payload":"find_org"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Donate",
+                 "payload":"donate"
+               }
+             ]
+           }
+
+          sendMessage(event.sender.id,message)
         }
         else if(!(event.postback.payload.localeCompare("donate"))){
           sendMessage(event.sender.id,{text: "donate"})
