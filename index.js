@@ -98,7 +98,7 @@ app.post('/webhook', function (req, res) {
                           "buttons": [{
                               "type": "postback",
                               "title": "View Overview",
-                              "payload":"The California Data Collaborative or “CaDC” is a voluntary, collaborative project where local cities, water retailers and land planning agencies have come together to build new data infrastructure to ensure California has reliable water today and into the future.  The CaDC has pioneered a new 501c3 data infrastructure non-profit and provides analytical tools and dashboards that are developed using freely available open source tools."
+                              "payload":"overviews_tThe California Data Collaborative or “CaDC” is a voluntary, collaborative project where local cities, water retailers and land planning agencies have come together to build new data infrastructure to ensure California has reliable water today and into the future.  The CaDC has pioneered a new 501c3 data infrastructure non-profit and provides analytical tools and dashboards that are developed using freely available open source tools."
                           },{
                               "type": "web_url",
                               "url": "http://californiadatacollaborative.com/",
@@ -113,7 +113,7 @@ app.post('/webhook', function (req, res) {
                           "buttons": [{
                               "type": "postback",
                               "title": "View Overview",
-                              "payload": "The initiative puts people and food first when it comes to using water, on the very day it is passed. In addition, the initiative begins the process of fixing our long-term water problems by increasing storage capacity for all water uses — families, farms and the environment — and it does so without raising taxes."
+                              "payload": "overviews_tThe initiative puts people and food first when it comes to using water, on the very day it is passed. In addition, the initiative begins the process of fixing our long-term water problems by increasing storage capacity for all water uses — families, farms and the environment — and it does so without raising taxes."
                             },{
                               "type": "web_url",
                               "url": "https://cawater4all.com/",
@@ -127,7 +127,7 @@ app.post('/webhook', function (req, res) {
                               "buttons": [{
                                 "type": "postback",
                                 "title": "View Overview",
-                                "payload": "The California Water Alliance (CalWA) is a leading educational voice and authority on California water. Founded in 2009, CalWA is a non-profit, non-partisan 501c4 that advocates for the water needs of California families, cities, businesses, farmers and the environment."
+                                "payload": "overviews_tThe California Water Alliance (CalWA) is a leading educational voice and authority on California water. Founded in 2009, CalWA is a non-profit, non-partisan 501c4 that advocates for the water needs of California families, cities, businesses, farmers and the environment."
                               },{
                                 "type": "web_url",
                                 "url": "http://californiawateralliance.org/",
@@ -159,8 +159,10 @@ app.post('/webhook', function (req, res) {
       }
       else if(event.postback){
 
-        if(!(event.postback.title.localeCompare("view overview"))){
-          sendMessage(event.sender.id,{text: event.postback.payload})
+        var newstring = event.postback.payload.split("s_t")
+
+        if(!(newstring[0].localeCompare("overview"))){
+          sendMessage(event.sender.id,{text: newstring[1]})
         }
         else if(!(event.postback.payload.localeCompare("donate"))){
           sendMessage(event.sender.id,{text: "donate"})
