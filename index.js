@@ -42,24 +42,43 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200)
 })
 
-function sendTextMessage(sender, text) {
-    let messageData = { text:text }
+
+
+app.post('/webhook', function (req, res) {
+    var events = req.body.entry[0].messaging;
+    console.log("the entire list of events")
+    console.log(events)
+    console.log("iterating the loop")
+    for (i = 0; i < events.length; i++) {
+        var event = events[i];
+        console.log("individual event " + event)
+        if (event.message && event.message.text) {
+        	text = event.message.text
+        	sendMessage(event.sender.id, {text: "Text received, echo: " + text.substring(0, 200)})
+        }
+        }
+    res.sendStatus(200)
+});
+
+
+function sendMessage(recipientId, message) {
+  console.log("the message " + message)
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
         method: 'POST',
         json: {
-            recipient: {id:sender},
-            message: messageData,
+            recipient: {id: recipientId},
+            message: message,
         }
     }, function(error, response, body) {
         if (error) {
-            console.log('Error sending messages: ', error)
+            console.log('Error sending message: ', error);
         } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
+            console.log('Error: ', response.body.error);
         }
-    })
-}
+    });
+};
 // changeClient.petitions.getByUrl(petitionUrl,
 //   function (err, res, body) {
 
