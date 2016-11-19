@@ -96,7 +96,7 @@ app.post('/webhook', function (req, res) {
                }
              ]
            }
-          sendMessage(event.sender.id, {text: text})
+          sendMessage(event.sender.id, message)
         }
         else if(!(event.message.text.toLowerCase().localeCompare("correct"))){
           sendMessage(event.sender.id, {text: "correct"})
