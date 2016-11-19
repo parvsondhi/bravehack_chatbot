@@ -120,7 +120,7 @@ app.post('/webhook', function (req, res) {
                        }
                      ]
                       };
-          sendMessage(event.sender.id,{text: "petition"})
+          sendMessage(event.sender.id,message)
         }
         else if(!(event.message.text.toLowerCase().localeCompare("donate"))){
           message = {
