@@ -122,7 +122,7 @@ app.post('/webhook', function (req, res) {
                             },
                             {
                               "title": "California Water Alliance",
-                              "subtitle": "Advocating for the water needs of California families, businesses, and farmers.",
+                              "subtitle": "Advocating for the water needs.",
                               "image_url": "https://s3-us-west-1.amazonaws.com/bravehack/calwa.png" ,
                               "buttons": [{
                                 "type": "postback",
@@ -159,8 +159,8 @@ app.post('/webhook', function (req, res) {
       }
       else if(event.postback){
 
-        if(!(event.postback.payload.localeCompare("petition"))){
-          sendMessage(event.sender.id,{text: "petition"})
+        if(!(event.postback.title.localeCompare("view overview"))){
+          sendMessage(event.sender.id,{text: event.postback.payload})
         }
         else if(!(event.postback.payload.localeCompare("donate"))){
           sendMessage(event.sender.id,{text: "donate"})
