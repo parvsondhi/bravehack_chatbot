@@ -86,6 +86,69 @@ app.post('/webhook', function (req, res) {
           sendMessage(event.sender.id,{text: "donate"})
         }
         else if(!(event.message.text.toLowerCase().localeCompare("find organizations"))){
+          message = {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                      "template_type": "generic",
+                      "elements": [{
+                          "title": "California Data Collaborative",
+                          "subtitle":"The Future of Water Management",
+                          "image_url": "https://s3-us-west-1.amazonaws.com/bravehack/cdc.png" ,
+                          "buttons": [{
+                              "type": "postback",
+                              "title": "View Overview",
+                              "payload":"The California Data Collaborative or “CaDC” is a voluntary, collaborative project where local cities, water retailers and land planning agencies have come together to build new data infrastructure to ensure California has reliable water today and into the future.  The CaDC has pioneered a new 501c3 data infrastructure non-profit and provides analytical tools and dashboards that are developed using freely available open source tools."
+                          },{
+                              "type": "web_url",
+                              "url": "http://californiadatacollaborative.com/",
+                              "title": "Go to Website"
+                              }],
+
+                        },
+                        {
+                          "title": "California Water 4 All",
+                          "subtitle": "The Water Priorities Constitutional Amendment and Bond Act",
+                          "image_url": "https://s3-us-west-1.amazonaws.com/bravehack/w4all.png" ,
+                          "buttons": [{
+                              "type": "postback",
+                              "title": "View Overview",
+                              "payload": "The initiative puts people and food first when it comes to using water, on the very day it is passed. In addition, the initiative begins the process of fixing our long-term water problems by increasing storage capacity for all water uses — families, farms and the environment — and it does so without raising taxes."
+                            },{
+                              "type": "web_url",
+                              "url": "https://cawater4all.com/",
+                              "title": "Go to Website"
+                              }],
+                            },
+                            {
+                              "title": "California Water Alliance",
+                              "subtitle": "Advocating for the water needs of California families, businesses, and farmers.",
+                              "image_url": "https://s3-us-west-1.amazonaws.com/bravehack/calwa.png" ,
+                              "buttons": [{
+                                "type": "postback",
+                                "title": "View Overview",
+                                "payload": "The California Water Alliance (CalWA) is a leading educational voice and authority on California water. Founded in 2009, CalWA is a non-profit, non-partisan 501c4 that advocates for the water needs of California families, cities, businesses, farmers and the environment."
+                              },{
+                                "type": "web_url",
+                                "url": "http://californiawateralliance.org/",
+                                "title": "Go to Website"
+                              }],
+                            }
+                          ]
+                        }
+                      },
+                      "quick_replies":[{
+                         "content_type":"text",
+                         "title":"Sign Petition",
+                         "payload":"petition"
+                       },
+                       {
+                         "content_type":"text",
+                         "title":"Donate",
+                         "payload":"donate"
+                       }
+                     ]
+                      };
           sendMessage(event.sender.id,{text: "organziation finding"})
         }
 
