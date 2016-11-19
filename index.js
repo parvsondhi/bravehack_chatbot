@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 3000));
 
-var intro_words = ["hey","hello","aloha","namaste","hi", "howdy", "heya"]
+var intro_words = ["hey","hello","aloha","namaste","hi", "howdy", "heya", "yo"]
 var ask_words = ["wassup", "what's up", "whatsup", "whats up","how are you", "how is it going", "how you doing", "how are you doing", "how are you?", "how is it going?", "how you doing?", "how are you doing?"]
 
 function inArray(needle,haystack){
@@ -80,6 +80,46 @@ app.post('/webhook', function (req, res) {
         	sendMessage(event.sender.id, {text: text})
         }
         else if(!(event.message.text.toLowerCase().localeCompare("sign petition"))){
+          message = {
+              "attachment": {
+                  "type": "template",
+                  "payload": {
+                      "template_type": "generic",
+                      "elements": [{
+                          "title": "Petition Name",
+                          "subtitle":"Petition Subtitle",
+                          "image_url": "https://s3-us-west-1.amazonaws.com/bravehack/cdc.png" ,
+                          "buttons": [{
+                              "type": "postback",
+                              "title": "Sign Now",
+                              "payload":"overviews_tThe California Data Collaborative or “CaDC” is a voluntary, collaborative project where local cities, water retailers and land planning agencies have come together to build new data infrastructure to ensure California has reliable water today and into the future."
+                          },
+                          {
+                              "type": "postback",
+                              "title": "More Info",
+                              "payload":"overviews_tThe California Data Collaborative or “CaDC” is a voluntary, collaborative project where local cities, water retailers and land planning agencies have come together to build new data infrastructure to ensure California has reliable water today and into the future."
+                          },
+                          {
+                              "type": "web_url",
+                              "url": "https://www.change.org/p/test-test-petitition",
+                              "title": "Go to Change.Org"
+                              }],
+
+                        }]
+                        }
+                      },
+                      "quick_replies":[{
+                        "content_type":"text",
+                        "title":"Find Organizations",
+                        "payload":"find_org"
+                       },
+                       {
+                         "content_type":"text",
+                         "title":"Donate",
+                         "payload":"donate"
+                       }
+                     ]
+                      };
           sendMessage(event.sender.id,{text: "petition"})
         }
         else if(!(event.message.text.toLowerCase().localeCompare("donate"))){
