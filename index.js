@@ -17,10 +17,10 @@ var changeClient = changeApi.createClient({
 
 app.get('/', function (req, res) {
     
-    changeClient.petitions.getByUrl(petitionUrl,
-  function (err, res, body) {
+  //   changeClient.petitions.getByUrl(petitionUrl,
+  // function (err, res, body) {
 
-  	console.log(body)
+  // 	console.log(body)
   	res.send('Hello world, I am a chat bot')
     //Process results here
   });
