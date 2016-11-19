@@ -79,6 +79,10 @@ app.post('/webhook', function (req, res) {
           text = "answer message"
         	sendMessage(event.sender.id, {text: text})
         }
+        else if(event.message.text.toLowerCase().includes("@")){
+          text = "Please confirm your email id " + event.message.text
+          sendMessage(event.sender.id, {text: text})
+        }
         else if(!(event.message.text.toLowerCase().localeCompare("sign petition"))){
           message = {
               "attachment": {
