@@ -149,7 +149,7 @@ app.post('/webhook', function (req, res) {
                        }
                      ]
                       };
-          sendMessage(event.sender.id,{text: "organziation finding"})
+          sendMessage(event.sender.id,message)
         }
 
         else{
