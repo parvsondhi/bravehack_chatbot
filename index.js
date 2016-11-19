@@ -83,7 +83,21 @@ app.post('/webhook', function (req, res) {
           sendMessage(event.sender.id,{text: "petition"})
         }
         else if(!(event.message.text.toLowerCase().localeCompare("donate"))){
-          sendMessage(event.sender.id,{text: "donate"})
+          message = {
+              "text":"We are currently adding this feature. Meanwhile don't hesitate to sign our petition or find similar organizations",
+              "quick_replies":[{
+                 "content_type":"text",
+                 "title":"Sign Petition",
+                 "payload":"petition"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Find Organizations",
+                 "payload":"find_org"
+               }
+             ]
+           }
+          sendMessage(event.sender.id,message)
         }
         else if(!(event.message.text.toLowerCase().localeCompare("find organizations"))){
           message = {
