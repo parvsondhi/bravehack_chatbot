@@ -58,7 +58,7 @@ app.post('/webhook', function (req, res) {
         	if(inArray(event.message.text.toLowerCase(),intro_words)){
         	text = "Introduction message"
         	sendMessage(event.sender.id, {text: text})
-        	sendMessage(event.sender.id, {text: "message2"})
+
         }
         else
         {	
@@ -86,6 +86,9 @@ function sendMessage(recipientId, message) {
             console.log('Error sending message: ', error);
         } else if (response.body.error) {
             console.log('Error: ', response.body.error);
+        }
+        else{
+        	sendMessage(event.sender.id, {text: "message2"})
         }
     });
 };
