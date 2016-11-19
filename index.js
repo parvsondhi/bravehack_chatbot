@@ -9,8 +9,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 3000));
 
-var intro_words = ["hey","hello","aloha","namaste","hi", "howdy", "heya", "yo"]
+var intro_words = ["hey","hello","aloha","namaste","hi", "howdy", "heya", "yo", "who are you", "who are you?", "whats your name?", "whats your name","what's your name","what's your name?"]
 var ask_words = ["wassup", "what's up", "whatsup", "whats up","how are you", "how is it going", "how you doing", "how are you doing", "how are you?", "how is it going?", "how you doing?", "how are you doing?"]
+var thank_words = ["thanks you", "thank you", "thanks", "gracias", "thank you so much", "thanx", "you are the best", "you're the best"]
+var love_words = ["i love you", "i really like you", "i love you alot", "i really love you"]
+
 
 function inArray(needle,haystack){
     var count=haystack.length;
@@ -25,7 +28,7 @@ var changeClient = changeApi.createClient({
 });
 
 app.get('/', function (req, res) {
-    res.send('This is Haven');
+    res.send('This is Oasis');
 });
 
 // Facebook Webhook
@@ -53,7 +56,7 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) {
           if(inArray(event.message.text.toLowerCase(),intro_words)){
         	   message = {
-        		     "text":"Introduction message",
+        		     "text":"Hi. I am Oasis. And with your help we are going to make a postive change today.",
     			       "quick_replies":[{
                     "content_type":"text",
                     "title":"Sign Petition",
@@ -76,9 +79,75 @@ app.post('/webhook', function (req, res) {
         }
 
         else if(inArray(event.message.text.toLowerCase(),ask_words)){
-          text = "answer message"
-
+          text = "I am doing good. Just trying to change the world one message at a time. Want to help?"
+          message = {
+              "text":text,
+              "quick_replies":[{
+                 "content_type":"text",
+                 "title":"Sign Petition",
+                 "payload":"petition"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Find Organizations",
+                 "payload":"find_org"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Donate",
+                 "payload":"donate"
+               }
+             ]
+           }
         	sendMessage(event.sender.id, {text: text})
+        }
+
+        else if(inArray(event.message.text.toLowerCase(),love_words)){
+          text = "Aww. I love you too"
+          message = {
+              "text":text,
+              "quick_replies":[{
+                 "content_type":"text",
+                 "title":"Sign Petition",
+                 "payload":"petition"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Find Organizations",
+                 "payload":"find_org"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Donate",
+                 "payload":"donate"
+               }
+             ]
+           }
+        	sendMessage(event.sender.id, message)
+        }
+
+        else if(inArray(event.message.text.toLowerCase(),thank_words)){
+          text = "Anything to help make a positive impact"
+          message = {
+              "text":text,
+              "quick_replies":[{
+                 "content_type":"text",
+                 "title":"Sign Petition",
+                 "payload":"petition"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Find Organizations",
+                 "payload":"find_org"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Donate",
+                 "payload":"donate"
+               }
+             ]
+           }
+        	sendMessage(event.sender.id, message)
         }
         else if(event.message.text.toLowerCase().includes("@")){
           text = "Please confirm your Email ID: " + event.message.text
@@ -114,7 +183,7 @@ app.post('/webhook', function (req, res) {
             country_code: 'US'
           },
           function (err, res, body) {
-            sendMessage(event.sender.id, {text: "Thank You So Much."})
+            sendMessage(event.sender.id, {text: "Thank you for making a difference."})
           });
         }
         else if(!(event.message.text.toLowerCase().localeCompare("enter again"))){
@@ -248,8 +317,27 @@ app.post('/webhook', function (req, res) {
         }
 
         else{
-        	text = event.message.text
-        	sendMessage(event.sender.id, {text: "Text received, echo: " + text.substring(0, 200)})
+        	text = "I am sorry I didn't get that. I am still growing. But you can try any of the below commands:"
+          message = {
+              "text":text,
+              "quick_replies":[{
+                 "content_type":"text",
+                 "title":"Sign Petition",
+                 "payload":"petition"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Find Organizations",
+                 "payload":"find_org"
+               },
+               {
+                 "content_type":"text",
+                 "title":"Donate",
+                 "payload":"donate"
+               }
+             ]
+           }
+        	sendMessage(event.sender.id, message)
         }
       }
       else if(event.postback){
