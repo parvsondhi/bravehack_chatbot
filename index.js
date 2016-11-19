@@ -99,7 +99,23 @@ app.post('/webhook', function (req, res) {
           sendMessage(event.sender.id, message)
         }
         else if(!(event.message.text.toLowerCase().localeCompare("correct"))){
-          sendMessage(event.sender.id, {text: "correct"})
+          console.log(event.message)
+          //sendMessage(event.sender.id, {text: "correct"})
+          // changeClient.petitions.addSignature({
+          //   petition_id: 8930333,
+          //   api_secret: '69451c75c48efbfeda20747fc864da44998e28b436841985c44b3e4f94f6c054',
+          //   auth_key: '0f043943c7badca2efefe991ba9a68502df78abcf6572457d59179cc138c26a6',
+          //   source: 'https://hellohaven.herokuapp.com',
+          //   email: 'jamesvardy@hotmail.com',
+          //   first_name: 'Jon',
+          //   last_name: 'Doe',
+          //   city: 'Berkeley',
+          //   postal_code: 94703,
+          //   country_code: 'US'
+          // },
+          // function (err, res, body) {
+          //   console.log(body);
+          // });
         }
         else if(!(event.message.text.toLowerCase().localeCompare("enter again"))){
           sendMessage(event.sender.id, {text: "Enter your Email Address"})
