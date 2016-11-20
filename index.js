@@ -183,6 +183,7 @@ app.post('/webhook', function (req, res) {
             country_code: 'US'
           },
           function (err, res, body) {
+            console.log(body)
             sendMessage(event.sender.id, {text: "Thank you for making a difference."})
           });
         }
