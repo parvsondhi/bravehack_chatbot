@@ -198,7 +198,7 @@ app.post('/webhook', function (req, res) {
                       "elements": [{
                           "title": "Petition Name",
                           "subtitle":"Petition Subtitle",
-                          "image_url": "https://s3-us-west-1.amazonaws.com/bravehack/cdc.png" ,
+                          "image_url": "https://s3-us-west-1.amazonaws.com/bravehack/petition.png" ,
                           "buttons": [{
                               "type": "postback",
                               "title": "Sign Now",
